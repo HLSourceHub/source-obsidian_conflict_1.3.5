@@ -1,0 +1,5 @@
+"VertexLitGeneric" 
+{ "$basetexture" "models/TysnSymbolB_Live" 
+ "$selfillum" 1
+"$surfaceprop" "metal"
+}

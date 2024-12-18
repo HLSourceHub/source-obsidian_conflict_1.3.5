@@ -1,0 +1,6 @@
+"VertexLitGeneric"
+{
+
+	"$basetexture" "models/obsidianmdls/atm_machine"
+	"$model" 1
+}

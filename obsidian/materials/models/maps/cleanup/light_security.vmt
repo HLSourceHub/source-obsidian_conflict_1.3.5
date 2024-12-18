@@ -1,0 +1,6 @@
+VertexLitGeneric
+{
+	"$basetexture"	"models\maps\cleanup\light_security"
+	"$selfillum" "1"
+
+}

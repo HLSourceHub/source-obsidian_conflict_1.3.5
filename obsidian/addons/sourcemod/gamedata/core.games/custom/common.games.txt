@@ -1,0 +1,28 @@
+"Games"
+{
+	/* Which games need a radio menu timeout? */
+	"#default"
+	{
+		"#supported"
+		{
+			"game"					"obsidian"
+		}
+
+		"Keys"
+		{
+			"RadioMenuTimeout"		"4"
+		}
+	}
+
+	"obsidian"
+	{
+		"Keys"
+		{
+			"GameExtension"		"game.oc"
+			"RadioMenuTimeout"	"4"
+
+			"HudRadioMenuMsg"		"ShowMenu"
+			"HudTextMsg"			"HudMsg"
+		}
+	}
+}

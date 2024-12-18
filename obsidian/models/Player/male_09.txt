@@ -1,0 +1,5 @@
+ModelSettings
+{
+	//Use this option to choose a base script to use instead.
+	"usefile"	"default_male"
+}

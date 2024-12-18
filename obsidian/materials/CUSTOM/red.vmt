@@ -1,0 +1,6 @@
+"UnlitGeneric"
+{
+	"$basetexture" "Custom/red"
+	"$surfaceprop" "Metal"
+	"$nodecal" 1
+}

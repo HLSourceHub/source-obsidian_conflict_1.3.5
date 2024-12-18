@@ -1,0 +1,5 @@
+"VertexLitGeneric" 
+{ "$basetexture" "models/TysnBarrelCrate1" 
+"$surfaceprop" "wood"
+
+}

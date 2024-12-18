@@ -1,0 +1,7 @@
+VertexLitGeneric
+{
+	"$basetexture"	"models\maps\cleanup\trash_can"
+	"$envmap" "env_cubemap"
+	"$envmapmask" "models\maps\cleanup\trash_can_ref"
+
+}

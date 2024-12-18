@@ -1,0 +1,27 @@
+// envmaptint_fix
+"vertexlitgeneric"
+{
+	"$basetexture" "metal/metalwall091a"
+	"$surfaceprop"  "metal"
+
+	"%keywords" "combine"
+	"$bumpmap" "metal/metalwall091a_normal"
+	//"$nodiffusebumplighting" 1
+	"$envmaptint" "[ .56 .56 .75 ]"
+	"$envmap" "env_cubemap"
+	"$normalmapalphaenvmapmask" 1
+	"$envmapcontrast" 1
+	"$envmapsaturation" 1
+//	"$parallaxmap" "metal/metalwall091a_height"
+//	"$parallaxmapscale" ".0125"
+
+	"vertexlitgeneric_hdr_dx9"
+	{
+		"$envmaptint" "[ .09 .1 .12]"	
+	}
+
+	"vertexlitgeneric_dx9"
+	{
+		"$envmaptint" "[ .09 .1 .12]"	
+	}
+}

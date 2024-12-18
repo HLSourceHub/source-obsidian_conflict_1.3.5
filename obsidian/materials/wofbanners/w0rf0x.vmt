@@ -1,0 +1,5 @@
+"UnlitGeneric"  {
+    "$basetexture" "wofbanners\w0rf0x"
+    "$surfaceprop" "Metal" 
+    "$nodecal" 1 
+}

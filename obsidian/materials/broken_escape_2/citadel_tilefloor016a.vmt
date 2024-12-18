@@ -1,0 +1,10 @@
+// Removed reflections for A.I. room to prevent render overflows.
+"LightmappedGeneric"
+{
+	"$basetexture" "Tile/tilefloor016a"
+	"$surfaceprop" "metal"
+	"%keywords" "combine"
+	"$bumpmap" "Tile/tilefloor021a_normal"
+
+	"$reflectivity" "[.23 .31 .31 ]" //this is a artificial radiosity boost
+}

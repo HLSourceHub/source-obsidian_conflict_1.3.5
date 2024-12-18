@@ -1,0 +1,7 @@
+"LightmappedGeneric"
+{
+	// Original shader: BaseTimesLightmap
+	"$basetexture" "waking_dead/window_decal"
+	"$decal" "1"
+	"$translucent" "1"
+}

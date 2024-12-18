@@ -1,0 +1,9 @@
+"LightmappedGeneric"
+{
+	"$basetexture" "glass/offwindow_nodirt"
+	"$translucent" "1"
+	"$surfaceprop" "glass"
+	//"$envmap" "env_cubemap"
+	//"$envmapcontrast" 1
+	//"$envmapsaturation" 1
+}

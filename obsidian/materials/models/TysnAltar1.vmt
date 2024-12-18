@@ -1,0 +1,5 @@
+"VertexLitGeneric" 
+{ "$basetexture" "models/TysnAltar1" 
+"$surfaceprop" "stone"
+
+}

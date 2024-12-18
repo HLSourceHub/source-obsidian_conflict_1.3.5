@@ -1,0 +1,5 @@
+"Eyeball"
+{
+	"$basetexture" "models/Police/pupil_l"
+	"$nodecal" "1"
+}

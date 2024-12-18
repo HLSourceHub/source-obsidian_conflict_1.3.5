@@ -1,0 +1,7 @@
+VertexLitGeneric
+{
+	"$basetexture"	"models\maps\cleanup\shelves_metal"
+	"$envmap" "env_cubemap"
+	"$envmapmask" "models\maps\cleanup\shelves_metal_ref"
+
+}

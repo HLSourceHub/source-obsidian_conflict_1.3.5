@@ -1,0 +1,16 @@
+VertexLitGeneric
+{
+	"$basetexture"	"models\sentinel\sentinel_gun\sentinel_gun.vtf"
+	"$bumpmap" "models\sentinel\sentinel_gun\sentinel_gun_normal.vtf"
+	"$alphatest" "1"
+	"$translucent" "1"
+	"$mostlyopaque"
+	"$envmap" "env_cubemap"
+    "$normalmapalphaenvmapmask" "1"
+	"$model" "1"
+	"$phong" "1"
+  	"$phongexponent" 33
+	"$phongexponenttexture" "models/sentinel/sentinel_gun/sentinel_gun_exponent.vtf"
+	"$phongboost"	"6"
+	"$phongfresnelranges"	"[0.05 0.5 1]"
+}

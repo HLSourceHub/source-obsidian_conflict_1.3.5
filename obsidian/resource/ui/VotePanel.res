@@ -1,0 +1,5 @@
+"Resource/UI/VotePanel.res"
+{
+
+
+}

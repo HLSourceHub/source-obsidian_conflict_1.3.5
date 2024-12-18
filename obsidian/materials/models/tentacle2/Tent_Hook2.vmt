@@ -1,0 +1,5 @@
+"VertexLitGeneric"
+{
+	"$baseTexture" "models/tentacle2/Tent_Hook2"
+	// "$bumpmap" "models/tentacle2/tent_hook2_normal"
+}

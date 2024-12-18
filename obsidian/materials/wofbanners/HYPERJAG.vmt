@@ -1,0 +1,7 @@
+"lightmappedGeneric"
+{
+	"$basetexture" "wofbanners/hyperjag"
+	"$surfaceprop" "metal"
+	"$translucent" 1
+        "$nodecal" 1 
+}

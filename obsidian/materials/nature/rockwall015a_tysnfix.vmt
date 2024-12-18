@@ -1,0 +1,7 @@
+// Should remove the bad cubemap effects from the rocks
+"LightmappedGeneric"
+{
+	"$basetexture" "Nature/rockwall015a"
+	"$surfaceprop" "concrete"
+	"$bumpmap" "Nature/rockwall015a_normal"
+}

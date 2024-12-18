@@ -1,0 +1,25 @@
+"Games"
+{
+	/* Obsidian Conflict 0.1.3.5 */
+	"obsidian"
+	{
+		"Offsets"
+		{
+			"GiveNamedItem"
+			{
+				"windows"	"351"
+				"linux"		"352"
+			}
+			"PlayerRunCmd"
+			{
+				"windows"	"371"
+				"linux"		"372"
+			}
+			"CommitSuicide"
+			{
+				"windows"	"396"
+				"linux"		"396"
+			}
+		}
+	}
+}

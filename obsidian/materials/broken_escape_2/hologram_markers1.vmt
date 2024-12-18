@@ -1,0 +1,7 @@
+unlitGeneric
+{
+	"$translucent" "1"
+	"$basetexture"	"broken_escape_2/hologram_markers1"
+	"$nocull" 	"1"
+	"$surfaceprop" 	"glass"
+}

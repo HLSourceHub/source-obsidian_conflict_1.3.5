@@ -1,0 +1,38 @@
+There are two methods for mounting episodic content in your map. I suggest that if you dont need any episodic content, do not mount it, as more players will be able to play your map.
+
+The first method is to prefix the name of your map with "ep1_" or "ep2_" depending on which game you want to mount.
+
+The second method is to create a mapname_modify.txt or a mapname_mounts.txt file for your map that contains:
+
+"MountEpisodeOne" "1"
+
+or
+
+"MountEpisodeTwo" "1"
+
+Note that when using this method, the .txt file must be added to your map's .res file for transfer to clients.  If clients do not have the file, they will not mount the content.  The mapname_mounts.txt file may be used in cases where you do not wish for clients to see the other changes you have made in the mapname_modify.txt file.
+
+Example script: mapname_mounts.txt
+
+"mapname"
+{
+	"MountEpisodeOne" "1"
+}
+
+Example script: mapname_modify.txt
+
+"mapname"
+{
+	"MountEpisodeOne" "1"
+	
+	SpawnItems
+	{
+		"weapon_crowbar" "1"
+	}
+}
+
+
+------------------
+Dedicated server admins should ensure that they have the episodic content extracted to their server's root folder in order to play maps that utilize the aforementioned content.
+
+See also: http://wiki.neic0.de/?title=Content_Mounting

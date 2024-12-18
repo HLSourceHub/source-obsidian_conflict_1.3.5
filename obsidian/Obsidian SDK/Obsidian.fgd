@@ -1,0 +1,1275 @@
+//-------------------------------------------------------------------------
+//
+// Obsidian Conflict FGD File
+//
+//-------------------------------------------------------------------------
+
+@include "Obsidian_HalfLife2.fgd"
+
+//-------------------------------------------------------------------------
+//
+// Info Entities
+//
+//-------------------------------------------------------------------------
+
+@BaseClass = InfoPlayerSpawn
+[ 
+	StartDisabled(choices) : "Start Disabled" : 0 =
+	[
+		0 : "No"
+		1 : "Yes"
+	]
+
+	// Inputs
+	input Enable(void) : "Enable this spawn point."
+	input Disable(void) : "Disable this spawn point."
+	// Outputs
+	output OnPlayerSpawn(void) : "Fired when a player spawns at this ent."
+]
+
+@PointClass base(PlayerClass, Targetname, Parentname, Angles, InfoPlayerSpawn) studio("models/editor/playerstart.mdl") = info_player_start :
+	"This entity indicates the position and facing direction at which the player will spawn in single player. Any number of "+
+	"info_player_start entities may be placed in a map. (LEGACY SUPPORT, try to avoid this entity and use one of the others, like info_player_deathmatch)"[]
+
+@PointClass base(PlayerClass, Targetname, Parentname, Angles, InfoPlayerSpawn) studio("models/editor/playerstart.mdl") = info_player_deathmatch :
+	"This entity indicates the position and facing direction at which the player will spawn during a deathmatch map. Any number of "+
+	"info_player_deathmatch entities may be placed in a map."[]
+
+@PointClass base(PlayerClass, Targetname, Parentname, Angles, InfoPlayerSpawn) studio("models/editor/playerstart.mdl") = info_player_red :
+	"This entity indicates the position and facing direction at which the player will spawn during a team map. Any number of "+
+	"info_player_red entities may be placed in a map."[]
+
+@PointClass base(PlayerClass, Targetname, Parentname, Angles, InfoPlayerSpawn) studio("models/editor/playerstart.mdl") = info_player_blue :
+	"This entity indicates the position and facing direction at which the player will spawn during a team map. Any number of "+
+	"info_player_blue entities may be placed in a map."[]
+
+@PointClass base(Targetname, Parentname) iconsprite("editor/info_waypoint.vmt") = info_waypoint : "An entity that creates a waypoint on the hud."
+[
+	image(sprite) : "Image" : "sprites/attention_waypoint" : "Image that will display on the HUD."
+	text(string) : "Text" : : "Text that will show under the icon on the HUD. Should be kept very short."
+
+	// Inputs
+	input Enable(float) : "Add the waypoint to all players' HUDs. Input value is the lifetime on the icon on the hud (0/blank lasts until disabled)."
+	input EnableForActivator(float) :  "Add the waypoint to the activator's HUD. Input value is the lifetime on the icon on the hud (0/blank lasts until disabled)."
+	input Disable(void) : "Remove the waypoint from all players' HUDs."
+	input DisableForActivator(void) : "Remove the waypoint from the activator's HUD only."
+]
+
+
+//-------------------------------------------------------------------------
+//
+// Logic Entities
+//
+//-------------------------------------------------------------------------
+@PointClass base(Targetname) iconsprite("editor/logic_episodic.vmt") = logic_episodic : "On Test, fires outputs depending which episodic GCFs are active."
+[
+	StartEnabled(choices) : "Start Enabled?" : 1 =
+	[
+		0 : "No"
+		1 : "Yes"
+	]
+	
+	// Inputs
+	input Test(void) : "Checks which episodic GCFs are mounted and fires their outputs."
+	input Enable(void) : "Enable so this logic entity can fire outputs."
+	input Disable(void) : "Disable so this logic entity cant can fire outputs."
+
+	// Outputs
+	output OnEpisode1(bool) : "Fired when the Episode 1 GCFs are mounted."
+	output OnEpisode2(bool) : "Fired when the Episode 2 GCFs are mounted."
+]
+
+@PointClass base(Targetname) = logic_player_branch : "On Test, compares the value to the current player count. Returns true if the player count is equal to or larger than the value. If 'Strict Equal To' is set to true, will only output true if the value is exactly equal to the number of players."
+[
+
+	InitialValue(integer) : "Test Value" : 0
+	StrictEqualto(choices) : "Strict Equal To?" : 0 =
+	[
+		0 : "No"
+		1 : "Yes"
+	]
+
+	// Inputs
+	input SetValue(integer) : "Sets the value to compare the current player count to."
+	input SetValueTest(integer) : "Sets the value to compare the current player count to, plus tests."
+	input Test(void) : "Compares the current player count to the current value, and outputs true or false."
+
+	// Outputs
+	output OnTrue(bool) : "Fired when the current player count is greater than or equal to the current value."
+	output OnFalse(bool) : "Fired when the current player count is less than the current value."
+]
+
+@PointClass base(Targetname) = logic_merchant_relay : "Usefull for entity based merchants."
+[
+
+	StartDisabled(choices) : "Start Disabled?" : 0 =
+	[
+		0 : "No"
+		1 : "Yes"
+	]
+
+	IsShared(choices) : "Is Shared?" : 0 : "Can all players chip in to buy this?" =
+	[
+		0 : "No"
+		1 : "Yes"
+	]
+
+	AnnounceCashNeeded(choices) : "Announce Cash Needed?" : 1 : "Tell the players how much cash they still need to purchase?" =
+	[
+		0 : "No"
+		1 : "Yes"
+	]
+
+	purchasesound(sound) : "Purchase Sound" : "" : "Name of the GameSound entry for the sound to play on purchase. Also supports direct .wav filenames."
+	CostOf(integer) : "Cost of Purchase" : 5
+	MaxPointsTake(integer) : "Max Points to take ( Shared Only )" : 0 : "How many points should be taken from the player when they input purchase? 0 Means as much as needed."
+	PurchaseName(string) : "Name of Purchase" : "A New Car!" : "Name of the purchase, which will appear in relay messages from this entity."
+
+	// Inputs
+	input SetPurchaseCost(integer) : "Sets the cost of the purchase."
+	input SetPurchaseName(string) : "Sets the name of the purchase."
+	input Purchase(void) : "Purchases item, or puts points towards a purchase if shared."
+	input Enable(void) : "Enables this entity."
+	input Disable(void) : "Disables this entity from use."
+
+	// Outputs
+	output OnPurchased(void) : "Fired when purchase is successful. Usefull for spawning your custom purchase."
+	output OnNotEnoughCash(void) : "Fired when the non-shared item is too expensive for the player."
+	output OnCashReduced(void) : "Fired when the shared items price has lowered from chip-ins."
+	output OnDisabled(void) : "Fired when purchase input has been given, but the relay is disabled."
+]
+
+
+//-------------------------------------------------------------------------
+//
+// Item Entities
+//
+//-------------------------------------------------------------------------
+
+@PointClass base(Item) studio("models/Player/w_helmet.mdl")= item_shield : "Player Shield Device" []
+@PointClass base(Item) studio("models/Player/w_cloak.mdl")= item_cloak : "Cloaking Device" []
+@PointClass base(Item) studio("models/healthvial.mdl")= item_lives : "Item to give or take the specified amount of lives to players who touch it."
+[
+	livestogive(integer) : "Number of lives to give" : 1 : "A negative number can be used here to take lives instead of give them."
+]
+
+@PointClass base(Item) studio("models/items/item_gaussammo.mdl")= item_ammo_tau : "Tau Round" []
+@PointClass base(Item) studio("models/items/boxalyxrounds.mdl")= item_box_alyxrounds : "Box of Alyx Gun Rounds" []
+@PointClass base(Item) studio("models/items/boxsniperrounds.mdl")= item_box_sniper_rounds : "Box of Sniper Rifle Rounds" []
+
+@PointClass base(Item) studio()= item_custom : "Custom Item"
+[
+	model(studio) : "Custom Model" : "models/items/boxmrounds.mdl"
+	Amount(integer) : "Number of Bullets" : 1 : "Number of Bullets Per"
+	AmmoName(string) : "Ammo Name"
+]
+
+
+//-------------------------------------------------------------------------
+//
+// HLS Entities
+//
+//-------------------------------------------------------------------------
+
+@BaseClass = Target
+[
+	target(target_destination) : "Target"
+
+	// Inputs
+	input Kill(void) : "Removes this entity from the world."
+	input KillHierarchy(void) : "Removes this entity and all its children from the world."
+	input AddOutput(string) : "Adds an entity I/O connection to this entity. Format: <output name> <targetname>:<inputname>:<parameter>:<delay>:<max times to fire (-1 == infinite)>. Very dangerous, use with care."
+	input FireUser1(void) : "Causes this entity's OnUser1 output to be fired."
+	input FireUser2(void) : "Causes this entity's OnUser2 output to be fired."
+	input FireUser3(void) : "Causes this entity's OnUser3 output to be fired."
+	input FireUser4(void) : "Causes this entity's OnUser4 output to be fired."
+
+	// Outputs
+	output OnUser1(void) : "Fired in response to FireUser1 input."
+	output OnUser2(void) : "Fired in response to FireUser2 input."
+	output OnUser3(void) : "Fired in response to FireUser3 input."
+	output OnUser4(void) : "Fired in response to FireUser4 input."
+]
+
+@BaseClass base(Target) = Targetx
+[
+	delay(string) : "Delay before trigger" : "0"
+	killtarget(target_destination) : "KillTarget"
+]
+
+@BaseClass = Appearflags
+[
+	spawnflags(Flags) =
+	[
+		2048 : "Not in Deathmatch" : 0
+	]
+]
+
+@BaseClass = TalkMonster
+[
+	UseSentence(String) : "Use Sentence"
+	UnUseSentence(String) : "Un-Use Sentence"
+]
+
+@BaseClass base(Target, Targetname, RenderFields, Angles) color(0 200 200) = Monster
+[
+	spawnflags(Flags) =
+	[
+		1 : "WaitTillSeen" 	: 0
+		2 : "Gag"		: 0
+		4 : "MonsterClip"	: 0
+		16: "Prisoner"		: 0
+		128: "WaitForScript" 	: 0
+		256: "Pre-Disaster" 	: 0
+		512: "Fade Corpse"	: 0
+	]
+
+	TriggerTarget(String) : "TriggerTarget"
+	TriggerCondition(Choices) : "Trigger Condition" : 0 =
+	[
+		0 : "No Trigger"
+		1 : "See Player, Mad at Player"
+		2 : "Take Damage"
+		3 : "50% Health Remaining"
+		4 : "Death"
+		7 : "Hear World"
+		8 : "Hear Player"
+		9 : "Hear Combat"
+		10: "See Player Unconditional"
+		11: "See Player, Not In Combat"
+	]
+]
+
+@PointClass base(Targetname, Targetx, Angles) size(-16 -16 0, 16 16 72) color(255 0 255) = aiscripted_sequence : "AI Scripted Sequence"
+[
+	spawnflags(Flags) =
+	[
+		4 : "Repeatable"		: 0
+		8 : "Leave Corpse"	: 0
+	]
+
+	m_iszEntity(string) : "Target Monster"
+	m_iszPlay(string) : "Action Animation" : ""
+	m_flRadius(integer) : "Search Radius" : 512
+	m_flRepeat(integer) : "Repeat Rate ms" : 0
+	m_fMoveTo(Choices) : "Move to Position" : 0 =
+	[
+		0 : "No"
+		1 : "Walk"
+		2 : "Run"
+		4 : "Instantaneous"
+		5 : "No - Turn to Face"
+	]
+	
+	m_iFinishSchedule(Choices) : "AI Schedule when done" : 0 =
+	[
+		0 : "Default AI"
+		1 : "Ambush"
+	]
+]
+
+@PointClass base(Targetname, Angles) sprite() = cycler_sprite : "Sprite Cycler"
+[
+	model(sprite) : "Sprite"
+	framerate(integer) : "Frames per second" : 10
+	renderfx(choices) :"Render FX" : 0 =
+	[
+		0: "Normal"
+		1: "Slow Pulse"
+		2: "Fast Pulse"
+		3: "Slow Wide Pulse"
+		4: "Fast Wide Pulse"
+		9: "Slow Strobe"
+		10: "Fast Strobe"
+		11: "Faster Strobe"
+		12: "Slow Flicker"
+		13: "Fast Flicker"
+		5: "Slow Fade Away"
+		6: "Fast Fade Away"
+		7: "Slow Become Solid"
+		8: "Fast Become Solid"
+		14: "Constant Glow"
+		15: "Distort"
+		16: "Hologram (Distort + fade)"
+	]
+	
+	rendermode(choices) : "Render Mode" : 0 =
+	[
+		0: "Normal"
+		1: "Color"
+		2: "Texture"
+		3: "Glow"
+		4: "Solid"
+		5: "Additive"
+	]
+	
+	renderamt(integer) : "FX Amount (1 - 255)"
+	rendercolor(color255) : "FX Color (R G B)" : "0 0 0"
+]
+
+@PointClass iconsprite("sprites/speaker.spr") = env_sound : "DSP Sound ( Obsolete!!! Use Soundscapes!!! )"
+[
+	radius(integer) : "Radius" : 128
+	roomtype(Choices) : "Room Type" : 0 =
+	[
+		0 : "Normal (off)"
+		1 : "Generic"
+
+		2 : "Metal Small"
+		3 : "Metal Medium"
+		4 : "Metal Large"
+
+		5 : "Tunnel Small"
+		6 : "Tunnel Medium"
+		7 : "Tunnel Large"
+
+		8 : "Chamber Small"
+		9 : "Chamber Medium"
+		10: "Chamber Large"
+
+		11: "Bright Small"
+		12: "Bright Medium"
+		13: "Bright Large"
+
+		14: "Water 1"
+		15: "Water 2"
+		16: "Water 3"
+
+		17: "Concrete Small"
+		18: "Concrete Medium"
+		19: "Concrete Large"
+
+		20: "Big 1"
+		21: "Big 2"
+		22: "Big 3"
+
+		23: "Cavern Small"
+		24: "Cavern Medium"
+		25: "Cavern Large"
+
+		26: "Weirdo 1"
+		27: "Weirdo 2"
+		28: "Weirdo 3"
+	]
+]
+
+@SolidClass base(Appearflags, RenderFields) = func_friction : "Surface with a change in friction"
+[
+	modifier(integer) : "Percentage of standard (0 - 100)" : 15
+]
+
+@SolidClass base(Targetname) = func_mortar_field : "Mortar Field"
+[
+	m_flSpread(integer) : "Spread Radius" : 64
+	m_iCount(integer) : "Repeat Count" : 1
+	m_fControl(Choices) : "Targeting" : 0 =
+	[
+		0 : "Random"
+		1 : "Activator"
+		2 : "Table"
+	]
+	
+	m_iszXController(target_destination) : "X Controller"
+	m_iszYController(target_destination) : "Y Controller"
+]
+
+@SolidClass base(Global,Appearflags, Targetname, RenderFields, Angles) = func_pendulum : "Swings back and forth"
+[
+	spawnflags(flags) =
+	[
+		1: "Start ON" : 0
+		8: "Passable" : 0
+		16: "Auto-return" : 0
+		64: "X Axis" : 0
+		128: "Y Axis" : 0
+	]
+
+	speed(integer) : "Speed" : 100
+	distance(integer) : "Distance (deg)" : 90
+	damp(integer) : "Damping (0-1000)" : 0
+	dmg(integer) : "Damage inflicted when blocked" : 0
+	_minlight(integer) : "_minlight"
+]
+
+@SolidClass base(Targetname,Global,RenderFields, PlatSounds) = func_plat : "Elevator"
+[
+	spawnflags(Flags) =
+	[
+		1: "Toggle" : 0
+	]
+	
+	height(integer) : "Travel altitude (can be negative)" : 0
+	speed(integer) : "Speed" : 50
+	_minlight(string) : "Minimum light level"
+]
+
+@SolidClass base(Breakable, RenderFields) = func_pushable : "Pushable object"
+[
+	spawnflags(flags) =
+	[
+		128: "Breakable" : 0
+	]
+
+	size(choices) : "Hull Size" : 0 =
+	[
+		0: "Point size"
+		1: "Player size"
+		2: "Big Size"
+		3: "Player duck"
+	]
+	
+	friction(integer) : "Friction (0-400)" : 50
+	buoyancy(integer) : "Buoyancy" : 20
+	_minlight(string) : "Minimum light level"
+]
+
+@PointClass base(Targetname, Targetx) = game_counter : "Fires when it hits limit"
+[
+	spawnflags(flags) =
+	[
+		1: "Remove On fire" : 0
+		2: "Reset On fire" : 1
+	]
+	
+	master(string) : "Master"
+	frags(integer) : "Initial Value" : 0
+	health(integer) : "Limit Value" : 10
+]
+
+@PointClass base(Targetname, Target) = game_counter_set : "Sets a game_counter"
+[
+	spawnflags(flags) =
+	[
+		1: "Remove On fire" : 0
+	]
+	
+	master(string) : "Master"
+	frags(integer) : "New Value" : 10
+]
+
+@PointClass base(Targetname) = game_player_hurt : "Hurts player who fires"
+[
+	spawnflags(flags) =
+	[
+		1: "Remove On fire" : 0
+	]
+
+	dmg(string) : "Damage To Apply" : "999"
+	master(string) : "Master"
+]
+
+@PointClass base(Targetname) size(-24 -24 0, 24 24 16) color(20 190 60) = info_bigmomma : "Big Mamma Node"
+[
+	spawnflags(Flags) =
+	[
+		1 : "Run To Node" : 0
+		2 : "Wait Indefinitely" : 0
+	]
+	
+	target(target_destination) : "Next node"
+	radius(string) : "Radius" : "0"
+	reachdelay(string) : "Wait after approach" : "0"
+	killtarget(target_destination) : "KillTarget"
+	reachtarget(target_destination) : "Fire on approach"
+	reachsequence(string) : "Sequence on approach" : ""
+	health(string) : "Health on approach" : ""
+	presequence(string) : "Sequence before approach" : ""
+]
+
+@PointClass size(-16 -16 0, 16 16 36) base(Weapon, Targetx) = item_airtank : "Oxygen tank" []
+
+@SolidClass base(Target) = button_target : "Target Button"
+[
+	spawnflags(flags) =
+	[
+		1: "Use Activates" : 1
+		2: "Start On" : 0
+	]
+	
+	master(string) : "Master"
+	renderfx(choices) :"Render FX" : 0 =
+	[
+		0: "Normal"
+		1: "Slow Pulse"
+		2: "Fast Pulse"
+		3: "Slow Wide Pulse"
+		4: "Fast Wide Pulse"
+		9: "Slow Strobe"
+		10: "Fast Strobe"
+		11: "Faster Strobe"
+		12: "Slow Flicker"
+		13: "Fast Flicker"
+		5: "Slow Fade Away"
+		6: "Fast Fade Away"
+		7: "Slow Become Solid"
+		8: "Fast Become Solid"
+		14: "Constant Glow"
+		15: "Distort"
+		16: "Hologram (Distort + fade)"
+	]
+	
+	rendermode(choices) : "Render Mode" : 0 =
+	[
+		0: "Normal"
+		1: "Color"
+		2: "Texture"
+		3: "Glow"
+		4: "Solid"
+		5: "Additive"
+	]
+	
+	renderamt(integer) : "FX Amount (1 - 255)"
+	rendercolor(color255) : "FX Color (R G B)" : "0 0 0"
+]
+
+@SolidClass base(Door) = momentary_door : "Momentary/Continuous door ( Obsolete )"
+[
+	spawnflags(flags) =
+	[
+		1 : "Starts Open" : 0
+	]
+]
+
+@PointClass base(Monster) size(-6 -6 0, 6 6 6) = monster_rat : "Rat (no ai?)" []
+
+@PointClass base(Targetname, Angles) size(-16 -16 -16, 16 16 16) = monstermaker : "Monster Maker"
+[
+	spawnflags(Flags) =
+	[
+		1 : "Start ON" 	: 0
+	// 	2 : "PVS On/Off" : 0  // not implemented
+		4 : "Cyclic" : 0
+		8 : "MonsterClip" : 0
+	]
+
+	target(string) : "Target On Release"
+	monstertype(string) : "Monster Type"
+	netname(string) : "Childrens' Name"
+
+	// how many monsters the monstermaker can create (-1 = unlimited)
+	monstercount(integer) : "Number of Monsters" : -1
+
+	// if delay is -1, new monster will be made when last monster dies.
+	// else, delay is how often (seconds) a new monster will be dookied out.
+	delay(string) : "Frequency" : "5"
+
+	// maximum number of live children allowed at one time. (New ones will not be made until one dies)
+	// -1 no limit
+	m_imaxlivechildren(integer) : "Max live children" : 5
+]
+
+@PointClass base(Targetname, Target) color(128 255 128) = multisource : "Multisource"
+[
+	globalstate(string) : "Global State Master"
+]
+
+@PointClass base(Targetx, Targetname) = trigger_camera : "Trigger Camera"
+[
+	spawnflags(flags) =
+	[
+		1: "Start At Player" : 1
+		2: "Follow Player" : 1
+		4: "Freeze Player" : 0
+	]
+
+	wait(integer) : "Hold time" : 10
+	moveto(string) : "Path Corner"
+	speed(string) : "Initial Speed" : "0"
+	acceleration(string) : "Acceleration units/sec^2" : "500"
+	deceleration(string) : "Stop Deceleration units/sec^2" : "500"
+]
+
+@PointClass base(Targetx, Targetname) = trigger_changetarget : "Trigger Change Target"
+[
+	m_iszNewTarget(string) : "New Target"
+]
+
+@SolidClass base(Trigger, Targetname) = trigger_counter : "Trigger counter"
+[
+	spawnflags(flags) =
+	[
+		1 : "No Message" : 0
+	]
+	
+	master(string) : "Master"
+	count(integer) : "Count before activation" : 2
+]
+
+@SolidClass base(Targetname) = trigger_endsection : "EndSection Trigger"
+[
+	spawnflags(flags) =
+	[
+		1: "USE Only" : 0
+	]
+	
+	section(string) : "Section"
+]
+
+@SolidClass base(Angles) = trigger_monsterjump : "Trigger monster jump"
+[
+	master(string) : "Master"
+	speed(integer) : "Jump Speed" : 40
+	height(integer) : "Jump Height" : 128
+]
+
+@PointClass base(Targetname) size(-8 -8 -8, 8 8 8) = multi_manager : "Old Half-Life 1 Legacy ent, use logic_relay instead."
+[
+	wait(float) : "wait" : 0 : "wait time"
+	
+	// Inputs
+	input Trigger(void) : "Trigger"
+	
+	// Outputs
+	output OnTrigger(void) : "OnTrigger"
+]
+
+@PointClass base(Targetname) = speaker : "Half-Life 1 VOX Announcement System"
+[
+	spawnflags(flags) =
+	[
+		1: "Start Silent" : 0
+	]
+
+	preset(choices) :"Announcement Presets" : 0 =
+	[
+		0: "None"
+		1: "C1A0 Announcer"
+		2: "C1A1 Announcer"
+		3: "C1A2 Announcer"
+		4: "C1A3 Announcer"
+		5: "C1A4 Announcer"
+		6: "C2A1 Announcer"
+		7: "C2A2 Announcer"
+		// 8: "C2A3 Announcer"
+		9: "C2A4 Announcer"
+		// 10: "C2A5 Announcer"
+		11: "C3A1 Announcer"
+		12: "C3A2 Announcer"
+	]
+	
+	message(string) : "Specific Sentence"
+	delaymin(float) : "Min Time" : 0 : "Min time till this is played."
+	delaymax(float) : "Max Time" : 0 : "Max time till this is played."
+	//preset(integer) : "Level Set" : 0 : "This is the Half-Life 1 Level announcement set."
+	radius(integer) : "Radius" : 0 : "The Radius this will be played."
+	health(integer) : "Health" : 0 : "Old HL1 Value which does nothing."
+]
+
+//-------------------------------------------------------------------------
+// Xen Entities
+//-------------------------------------------------------------------------
+
+@PointClass base(Target, Targetname, RenderFields, Angles) size(-48 -48 0, 48 48 32 ) = xen_plantlight : "Xen Plant Light" []
+
+@PointClass base(Targetname, RenderFields, Angles) size(-8 -8 0, 8 8 32 ) = xen_hair : "Xen Hair"
+[
+	spawnflags(Flags) =
+	[
+		1 : "Sync Movement" 	: 0
+	]
+]
+@PointClass base(Targetname, RenderFields, Angles) size(-24 -24 0, 24 24 188 ) = xen_tree : "Xen Tree" []
+@PointClass base(Targetname, RenderFields, Angles) size(-16 -16 0, 16 16 64 ) = xen_spore_small : "Xen Spore (small)" []
+@PointClass base(Targetname, RenderFields, Angles) size(-40 -40 0, 40 40 120 ) = xen_spore_medium : "Xen Spore (medium)" []
+@PointClass base(Targetname, RenderFields, Angles) size(-90 -90 0, 90 90 220 ) = xen_spore_large : "Xen Spore (large)" []
+
+
+//-------------------------------------------------------------------------
+//
+// Misc Entities
+//
+//-------------------------------------------------------------------------
+
+@PointClass base(Targetname) sphere(radius) = env_teleport_effect : "Entity that creates a teleport effect with beams and a sprite."
+[
+	life(float) : "Effect Duration" : 3 : ""
+	width(float) : "Beam Starting Width" : 10 : ""
+	noise(float) : "Beam Noise" : 15 : ""
+	radius(float) : "Effect Size" : 256 : ""
+	beamcount(integer) : "Number of Beams" : 10 : ""
+	beamcolor(color255) : "Effect Color" : "255 255 255" : ""
+	sound(sound) : "Effect Sound" : "Ambience.ParticleSuck1" : "Name of the GameSound entry for the effect to play. Also supports direct .wav filenames."
+
+	// Inputs
+	input CreateEffect(void) : "Creates a teleport effect"
+]
+
+@SolidClass base(Targetname) = func_ladder : "Ladder" []
+
+@SolidClass base(Targetname, Origin, RenderFields) = func_train : "Train"
+[
+	spawnflags(flags) =
+	[
+		8 : "Non-solid" : 0
+	]
+
+	texframeindex(integer) : "Initial Brush Frame Index" : : "Use this to set the initial frame of materials with multiple frames in the brush"
+	target(target_destination) : "First path_corner"
+	noise1(sound) : "Movement Sound" : : "The sound to play when the train moves."
+	noise2(sound) : "Stop Sound" : : "The sound to play when the train stops moving."
+	speed(float) : "Speed" : "50.000000" : "Speed at which the brush moves."
+	volume(float) : "Sound volume [0.0, 10.0]" : "0.000000"
+	dmg(float) : "Crush Damage" : "0.000000"
+
+	// Inputs
+	input Toggle(void) : "Toggle movement"
+	input Start(void) : "Start movement"
+	input Stop(void) : "Stop movement"
+	input Use(void) : "Toggle movement - has a different functionality than Toggle"
+]
+
+@PointClass base(Targetname) size(-8 -8 -8, 8 8 8) = game_countdown_timer : "An entity that displays a countdown timer on all players' screens."
+[
+  	// Inputs
+	input StartTimer(float) : "Sets the countdown timer to the number of seconds input and starts it counting."
+	input StopTimer(void) : "Stops and removes the countdown timer."
+	input PauseTimer(void) : "Pauses the countdown timer but keeps it on players' screens."
+	input ResumeTimer(void) : "Resumes a paused countdown timer."
+	input SetTimerLabel(string) : "Sets the text displayed above the timer to the input string."
+]
+
+@PointClass base(Targetname) size(-8 -8 -8, 8 8 8) = game_lives_manager : "An entity that can give or take lives to or from players and teams."
+[
+	// Inputs
+	input GiveLivesToActivator(integer) : "Gives lives to the activator."
+	input GiveLivesToActivatorTeam(integer) : "Gives lives to the activator and their team."
+	input GiveLivesToEnemyTeam(integer) : "Gives lives to enemy team."
+	input GiveLivesToBlueTeam(integer) : "Gives lives to the Blue team."
+	input GiveLivesToRedTeam(integer) : "Gives lives to the Red team."
+	input GiveLivesToAllPlayers(integer) : "Gives lives all players."
+]
+
+@PointClass base(game_text) iconsprite("editor/game_text.vmt") = game_text_quick : "An entity that displays customized text on player's screens."
+[
+	// Inputs
+	input DisplayText(string) : "Display this message text."
+]
+
+// Point_Teleport was heavily modified, so I placed it here
+@PointClass base(Targetname, Angles) sphere(radius) iconsprite("editor/point_teleport.vmt") = point_teleport : 
+	"An entity that teleports a target entity to this position and angles. "+
+	"If 'Teleport Home' spawn flag is set, teleports the target entity to its spawn position instead." +
+	"If object is physically simulated, simulation is turned off when teleported."
+[
+	spawnflags(flags) =
+	[
+		1 : "Teleport Home" : 0
+		2 : "Into Duck (episodic)" : 0
+
+		4096: "Preserve angles even when a local landmark is not specified" : 0
+		2048: "Clients" : 1
+		8192: "NPCs" : 0
+		4: "Pushables": 0
+		8: "Physics Objects" : 0
+		16: "Only player ally NPCs" : 0
+		32: "Only clients in vehicles" : 0
+		64: "Everything" : 0
+		512: "Only clients *not* in vehicles" : 0
+	]
+
+	target(target_destination) : "Entity To Teleport" : : "Name of the entity that will be teleported. If not specified, any entities matching the criteria and in the teleport radius will be teleported."
+	radius(float) : "Teleport Radius" : 128 : ""
+	TeleportDestination(target_destination) : "Teleport Destination" : : "Name of the entity that serves as the teleport destination. If none, will teleport to the origin of this point_teleport."
+	landmark(target_destination) : "Local Destination Landmark" : : "If specified, then teleported entities are offset from the target by their initial offset from the landmark."
+	filtername(filterclass) : "Filter Name" : : "Filter to use to see if activator triggers me. See filter_activator_name for more explanation."
+	StartEnabled(choices) : "Start Enabled" : 0 : "" =
+	[
+		0 : "No"
+		1 : "Yes"
+	]
+
+	// Inputs
+	input Teleport(void) : "Teleport the target entity. If no target, will teleport any entities in the radius that pass the filters, but will not enable."
+	input Enable(void) : "Enable this teleport to teleport any entities that are in the radius and pass the filters."
+	input Disable(void) : "Disable automatic teleport."
+	input Toggle(void) : "Toggle between enabled and disabled."
+]
+
+@PointClass base(Targetname) sphere(DamageRadius) = point_hurt :
+	"An entity that does damage to all entities in a radius around itself, with a specified delay." +
+	"If 'Target Entity' is specified, the damage is only done to that entity."
+[
+	spawnflags(flags) = 
+	[
+		1: "Clients" : 1
+		2: "NPCs" : 0
+		4: "Pushables": 0
+		8: "Physics Objects" : 0
+		16: "Only player ally NPCs" : 0
+		32: "Only clients in vehicles" : 0
+		64: "Everything (not including physics debris)" : 0
+		512: "Only clients *not* in vehicles" : 0
+		1024: "Physics debris" : 0
+		2048: "Only NPCs in vehicles (respects player ally flag)" : 0
+	]
+
+	filtername(filterclass) : "Filter Name" : : "Filter to use to see if activator triggers me. See filter_activator_name for more explanation."
+
+	DamageTarget(string) : "Target Entity" : "" : "If specified, only this entity will take damage, no matter where it is. Otherwise, all entities that pass the filters within the Radius will take damage."
+	
+	DamageRadius(float) : "Radius" : 256 : "All entities within this radius of this entity that pass the filters will take damage. If a 'Target Entity' is specified, only that entity will take damage, no matter where it is."
+	Damage(integer) : "Damage" : 5 : "Damage done to all affected entities each time this entity fires."
+	DamageDelay(float) : "Delay" : 1 : "Delay between refires, in seconds."
+	
+	DamageType(choices) : "Damage Type" : 0 : "Type of damage to inflict on entities damaged." =
+	[
+		0 : "GENERIC"
+		1 : "CRUSH"
+		2 : "BULLET"
+		4 : "SLASH"
+		8 : "BURN"
+		16 : "VEHICLE"
+		32 : "FALL"
+		64 : "BLAST"
+		128 : "CLUB"
+		256 : "SHOCK"
+		512 : "SONIC"
+		1024 : "ENERGYBEAM"
+		16384: "DROWN"
+		32768 : "PARALYZE"
+		65536 : "NERVEGAS"
+		131072 : "POISON"
+		262144 : "RADIATION"
+		524288 : "DROWNRECOVER"
+		1048576 : "ACID"
+		2097152 : "SLOWBURN"
+		16777216 : "PLASMA"
+		67108864 : "DISSOLVE"
+		536870912 : "BUCKSHOT"
+		
+	]
+
+	// Inputs
+	input Hurt(void) : "Force a single fire, damaging either the Target Entity or all entities within the radius."
+	input TurnOn(void) : "Enable this entity. It will start damaging entities everytime it fires, and refire based upon the specified Delay."
+	input TurnOff(void) : "Disable this entity. It will stop damaging entities."
+	input Toggle(void) : "Toggle this entity between On/Off state."
+]
+
+@PointClass base(Targetname, Parentname, EnableDisable) sphere(TriggerRadius) = point_trigger : "Point based trigger.  Use sparingly, as they are processor-intensive."
+[
+	spawnflags(flags) =
+	[
+		1: "Clients" : 1
+		2: "NPCs" : 0
+		4: "Pushables": 0
+		8: "Physics Objects" : 0
+		16: "Only player ally NPCs" : 0
+		32: "Only clients in vehicles" : 0
+		64: "Everything" : 0
+		512: "Only clients *not* in vehicles" : 0
+	]
+
+	TriggerOnce(choices) : "Trigger Type" : 0 =
+	[
+		0 : "Multiple"
+		1 : "Once"
+	]
+	
+	TriggerRadius(float) : "Trigger Radius" : 128 : ""
+	filtername(filterclass) : "Filter Name" : : "Filter to use to see if activator triggers me. See filter_activator_name for more explanation."
+
+	// Inputs
+	input Toggle(void) : "Toggles this trigger between enabled and disabled states."
+
+	// Outputs
+	output OnStartTouch(void) : "Fired when an entity enters the radius of this trigger. The entity must pass this trigger's filters to cause this output to fire."
+	output OnEndTouch(void) : "Fired when an entity stops touching this trigger. Only entities that passed this trigger's filters will cause this output to fire."
+	output OnEndTouchAll(void) : "Fires when an entity stops touching this trigger, and no other entities are touching it. Only entities that passed this trigger's filters are considered."
+]
+
+@PointClass base(Targetname, Parentname, EnableDisable) sphere(TriggerRadius) = point_vehiclespawn : "Point trigger that enables vehicle spawning for players that are inside. Use sparingly, as they are processor-intensive."
+[
+	spawnflags(flags) =
+	[
+		1: "Clients" : 1
+		2: "NPCs" : 0
+		4: "Pushables": 0
+		8: "Physics Objects" : 0
+		16: "Only player ally NPCs" : 0
+		32: "Only clients in vehicles" : 0
+		64: "Everything" : 0
+		512: "Only clients *not* in vehicles" : 0
+	]
+
+	TriggerRadius(float) : "Trigger Radius" : 128 : ""
+	filtername(filterclass) : "Filter Name" : : "Filter to use to see if activator triggers me. See filter_activator_name for more explanation."
+
+	CanSpawnJeep(choices) : "Can Spawn Car Vehicle" : 0 =
+	[
+		0 : "No"
+		1 : "Jeep"
+		2 : "Jalopy"
+	]
+
+	CanSpawnAirboat(choices) : "Can Spawn Water Vehicle" : 0 =
+	[
+		0 : "No"
+		1 : "Airboat"
+	]
+
+	// Inputs
+	input Toggle(void) : "Toggles this trigger between enabled and disabled states."
+]
+
+@PointClass base(Targetname) sphere(EatRadius) = point_weapon_eater : "Eats weapons in a radius, Yummy Yummy"
+[
+	EatRadius(integer) : "Eating Radius" : 256 : "Distance at which I will eat weapons."
+
+	// Inputs
+	input Eat(void) : "Nom Nom Nom Yummy. Call me multiple times to fill my hunger."
+]
+//-------------------------------------------------------------------------
+//
+// NPC Entities
+//
+//-------------------------------------------------------------------------
+
+@NPCClass base(BaseNPC) studio() = npc_bullsquid : "Bullsquid"
+[
+	model(studio) : "Custom Model" : "models/bullsquid.mdl"
+]
+
+@NPCClass base(BaseNPC) studio() = npc_defender : "Defender - NPC used for Evasion maps."
+[
+	spawnflags(Flags) =
+	[
+		65536 :  "No Dynamic Light" : 0
+	]
+
+	model(studio) : "Custom Model" : "models/combine_scanner.mdl"
+	spotlightlength(integer) : "SpotlightLength" : 500
+	spotlightwidth(integer) : "SpotlightWidth" : 50
+
+	spotlightdisabled(choices) : "SpotlightDisabled" : 0 =
+	[
+		0 : "No"
+		1 : "Yes"
+	]
+
+	ShouldInspect(choices) : "Should inspect" : 1 =
+	[
+		0 : "No"
+		1 : "Yes"
+	]
+
+	OnlyInspectPlayers(choices) : "Only Inspect Players" : 0 =
+	[
+		0 : "No"
+		1 : "Yes"
+	]
+
+	NeverInspectPlayers(choices) : "Never Inspect Players" : 0 =
+	[
+		0 : "No"
+		1 : "Yes"
+	]
+
+	gibmodel0(studio) : "Gib Model 1" : : "Custom gib model.  Leave blank for default gib."
+	gibmodel1(studio) : "Gib Model 2" : : "Custom gib model.  Leave blank for default gib."
+	gibmodel2(studio) : "Gib Model 3" : : "Custom gib model.  Leave blank for default gib."
+	gibmodel3(studio) : "Gib Model 4" : : "Custom gib model.  Leave blank for default gib."
+
+	// Inputs
+	input DisableSpotlight(void) : "DisableSpotlight"
+	input InspectTargetSpotlight(string) : "Tells the scanner to spotlight the given entity, named by classname or by target name. !activator or !player works here also."
+	input InputSetFlightSpeed(integer) : "Sets the flight speed of the scanner"
+	input InputShouldInspect(integer) : "Set whether should inspect or not"
+	input SetFollowTarget(string) : "Set target to follow until told otherwise"
+	input ClearFollowTarget(void) : "Stop following our target"
+	input SetDistanceOverride(float) : "Override the distance the scanner will attempt to keep between inspection targets and itself"
+]
+
+@NPCClass base(BaseCombine) studio() = npc_hgrunt : "Human Grunt"
+[
+	spawnflags(Flags) =
+	[
+		32 : "Use Leader Model" : 0
+	]
+
+	// No default so it will default to random
+	//	model(studio)  : "Custom Model" : "models/hgrunt1.mdl"
+]
+
+@NPCClass base(BaseNPC) studio() = npc_houndeye : "Houndeye"
+[
+	model(studio) : "Custom Model" : "models/houndeye.mdl"
+	followonspawn(choices) : "Follow Player on Use?" : 0 =
+	[
+		0 : "No"
+		1 : "Yes"
+	]
+
+	// Inputs
+	input follow(void) : "Allow Player Follow"
+	input dontfollow(void) : "Disable Player Follow"
+]
+
+@NPCClass base(TalkNPC, BaseNPC, PlayerCompanion) studio() = npc_merchant : "Merchant NPC"
+[
+	model(studio) : "Custom Model" : "models/Barney.mdl"
+	additionalequipment(choices) : "Weapons" : "Nothing" =
+	[
+		"0" : "Nothing"
+	]
+
+	ExpressionOverride(string) : "Facial expression override"
+	MerchantScript(string) : "Merchant Script name"
+	MerchantIconMaterial(string) : "Merchant Icon Material" : "sprites/merchant_buy.vmt"
+	ShowIcon(choices) : "Show Merchant Icon?" : "1" =
+	[
+		"0" : "No"
+		"1" : "Yes"
+	]
+
+	IconHeight(integer) : "Icon Height" : 80 : "Height Above Merchant"
+
+	// Inputs
+	input SetExpressionOverride(string) : "Set facial expression override"
+
+	// Outputs
+	output OnPlayerUse(void) : "Fires when a player +USEs"
+]
+
+@NPCClass base(BaseNPC) studio() = npc_mortarsynth : "Mortar Synth"
+[
+	model(studio) : "Custom Model" : "models/mortarsynth.mdl"
+]
+
+@NPCClass base(BaseNPC) studio() = npc_zombine : "Zombine"
+[
+	spawnflags(Flags) =
+	[
+		65536 :  "No Headcrab" : 0
+	]
+
+	model(studio) : "Custom Model" : "models/Zombie/Zombie_Soldier.mdl"
+]
+
+//-------------------------------------------------------------------------
+// Monster NPCs
+//-------------------------------------------------------------------------
+
+@NPCClass base(BaseNPC) studio() = monster_alien_controller : "HL1 Alien Controller"
+[
+	model(studio) : "Custom Model" : "models/controller.mdl"
+]
+
+@NPCClass base(BaseNPC) studio() = monster_alien_grunt : "HL1 Alien Grunt"
+[
+	model(studio) : "Custom Model" : "models/agrunt.mdl"
+]
+
+@NPCClass base(BaseNPC) studio() = monster_alien_slave : "HL1 Vortigaunt"
+[
+	model(studio) : "Custom Model" : "models/islave.mdl"
+]
+
+@NPCClass base(BaseNPC) studio() = monster_bigmomma : "HL1 Gonarch"
+[
+	model(studio) : "Custom Model" : "models/big_mom.mdl"
+	crabtype(choices) : "Headcrab Type" : 0 =
+	[
+		0 : "Classic Headcrab"
+		1 : "Poison Headcrab"
+		2 : "Fast Headcrab"
+		3 : "Random"
+	]
+]
+
+@NPCClass base(BaseNPC) studio() = monster_cockroach : "HL1 Cockroach"
+[
+	model(studio) : "Custom Model" : "models/roach.mdl"
+
+	// Outputs
+	output OnSquish(void) : "When cockroach dies / gets squished"
+]
+
+@NPCClass base(BaseNPC) studio() = monster_human_assassin : "HL1 Assassin"
+[
+	spawnflags(Flags) =
+	[
+		65536 : "Cloak even when not on hard difficulty" : 0
+	]
+
+	model(studio) : "Custom Model" : "models/hassassin.mdl"
+]
+
+@NPCClass base(BaseNPC) studio() = monster_lightstalk : "HL1 Lightstalk"
+[
+	model(studio) : "Custom Model" : "models/light.mdl"
+
+	// Outputs
+	output OnRise(void) : "When Lightstalk Rises"
+	output OnLower(void) : "When Lightstalk Lowers"
+]
+
+@NPCClass base(BaseNPC) studio() = monster_tentacle : "HL1 Tentacle"
+[
+	model(studio) : "Custom Model" : "models/tentacle2.mdl"
+]
+
+@NPCClass base(BaseNPC) studio() = monster_snark : "HL1 Snark"
+[
+	model(studio) : "Custom Model" : "models/w_squeak.mdl"
+]
+
+@NPCClass base(BaseNPC) studio() = monster_flyer : "HL1 Flyer"
+[
+	model(studio) : "Custom Model" : "models/aflock.mdl"
+]
+
+@NPCClass base(BaseNPC) studio() = monster_flyer_flock : "HL1 Flyer Flock"
+[
+	model(studio) : "Custom Model" : "models/aflock.mdl"
+]
+
+@NPCClass base(BaseNPC) studio() = monster_scientist : "HL1 scientist"
+[
+	spawnflags(Flags) =
+	[
+		268435456 :  "Black Mesa Disaster state?" : 0
+	]
+
+	model(studio) : "Custom Model" : "models/scientist.mdl"
+]
+
+@NPCClass base(BaseNPC) studio() = monster_sitting_scientist : "HL1 scientist Sitting"
+[
+	spawnflags(Flags) =
+	[
+		268435456 :  "Black Mesa Disaster state?" : 0
+	]
+
+	model(studio) : "Custom Model" : "models/scientist.mdl"
+]
+
+@NPCClass base(BaseNPC) studio() = monster_scientist_dead : "HL1 scientist Dead"
+[
+	model(studio) : "Custom Model" : "models/scientist.mdl"
+]
+
+@NPCClass base(BaseNPC) studio() = monster_gargantua : "Gargantua"
+[
+	spawnflags(Flags) =
+	[
+		65536 : "Vulnerable To Bullets" : 0
+	]
+
+	model(studio) : "Custom Model" : "models/garg.mdl"
+]
+
+//-------------------------------------------------------------------------
+//
+// Trigger Entities
+//
+//-------------------------------------------------------------------------
+
+@SolidClass base(Trigger) = trigger_auto_crouch : "A trigger volume that let all players inside automatically crouch (duck)" []
+
+@SolidClass base(Trigger) = trigger_multiple_oc : "A trigger volume that can be triggered multiple times."
+[
+	wait(integer) : "Delay Before Reset" : 1 : "Amount of time, in seconds, after the trigger_multiple has triggered before it can be triggered again. If set to -1, it will never trigger again (in which case you should just use a trigger_once)."
+
+	// Inputs
+	input TouchTest(void) : "Tests if the trigger is being touched and fires an output based on whether the value is true or false."
+
+	// Outputs
+	output OnTrigger(void) : "Fired whenever the trigger is activated."
+	output OnTouching(void) : "Fired when the TestTouch input is true (something is touching the trigger.)"
+	output OnNotTouching(void) : "Fired when the TestTouch input is not true (nothing is touching the trigger.)"
+]
+
+@SolidClass base(TriggerOnce) = trigger_once_oc : "A trigger volume that removes itself after it is triggered once."
+[
+	// Outputs
+	output OnTrigger(void) : "Fired whenever the trigger is activated."
+]
+
+@SolidClass base(Trigger, Angles) = trigger_nocollide : "A volumetric trigger that disables collisions between players" []
+
+@SolidClass base(Trigger, Angles) = trigger_player_count : "A volumetric trigger that Counts Players"
+[
+	VolumeName(string) : "Name of Volume"
+	ConstantAnnounce(choices) : "Constantly Announce" : 0 =
+	[
+		0 : "No"
+		1 : "Yes"
+	]
+
+	// Inputs
+	input SetReceiver(void) : "Sets the Receiver of Messages."
+	input NullReceiver(void) : "Receiver will no longer receive messages from this trigger."
+	input CountPlayers(void) : "Counts the Players in the volume and tells everyone the amount."
+	input CountPlayersToActivator(void) : "Counts the Players in the volume and tells the activator the amount."
+
+	// Outputs
+	output OnPlayerEntered(void) : "On Player Entered Volume"
+	output OnRedPlayerEntered(void) : "On Red Player Entered Volume"
+	output OnBluePlayerEntered(void) : "On Blue Player Entered Volume"
+
+	output OnPlayerLeave(void) : "On Player Leave Volume"
+	output OnRedPlayerLeave(void) : "On Red Player Leave Volume"
+	output OnBluePlayerLeave(void) : "On Blue Player Leave Volume"
+
+	output OnAllPlayersEntered(void) : "On All Server Players Enter"
+	output OnAllRedPlayersEntered(void) : "On All Red Team Players Enter"
+	output OnAllBluePlayersEntered(void) : "On All Blue Team Players Enter"
+]
+
+@SolidClass base(Trigger, Angles) = trigger_vehiclespawn : "A volumetric trigger that enables vehicle spawning for players that are inside."
+[
+	CanSpawnJeep(choices) : "Can Spawn Car Vehicle" : 0 =
+	[
+		0 : "No"
+		1 : "Jeep"
+		2 : "Jalopy"
+	]
+
+	CanSpawnAirboat(choices) : "Can Spawn Water Vehicle" : 0 =
+	[
+		0 : "No"
+		1 : "Airboat"
+	]
+]
+
+
+//-------------------------------------------------------------------------
+//
+// Weapon Entities
+//
+//-------------------------------------------------------------------------
+
+@PointClass base(Weapon) studio("models/weapons/w_gauss.mdl") = weapon_gauss : "Gauss Gun/Tau Cannon" []
+@PointClass base(Weapon) studio("models/weapons/w_manhack.mdl") = weapon_manhack : "Manhack Weapon" []
+//@PointClass base(Weapon) studio("models/weapons/w_hopwire.mdl") = weapon_hopwire : "Hopwire Ball" []
+@PointClass base(Weapon) studio("models/weapons/w_pistol.mdl") = weapon_scripted : "Scripted Weapon" []
+@PointClass base(Weapon) studio("models/weapons/w_slam.mdl") = weapon_slam : "SLAM" []
+@PointClass base(Weapon) studio("models/weapons/w_uzi_r.mdl") = weapon_uzi : "A Single Uzi" []
+@PointClass base(Weapon) studio("models/weapons/w_sniper.mdl") = weapon_sniperrifle : "Sniper Rifle" []
+
+
+//-------------------------------------------------------------------------
+//
+// Game data for Half-Life 2 Multiplayer.
+//
+//-------------------------------------------------------------------------
+
+@FilterClass base(BaseFilter) size(-8 -8 -8, 8 8 8) = filter_activator_team :
+	"A filter that filters by the team of the activator."
+[
+	filterteam(choices) : "Filter Team Number" : 2 : 
+		"The team number to filter by.  If the filter mode is Allow, only entities whose "+
+		"team number matches the given team will pass the filter. If the filter mode is Disallow, "+
+		"all entities EXCEPT those whose team number matches the given team will pass the filter." =
+	[
+		2 : "Blue"
+		3 : "Red"
+	]
+]
+
+@PointClass base(prop_physics) studioprop() sphere(fademindist) sphere(fademaxdist) = prop_physics_respawnable :
+	"This class is the same as prop_physics, except it respawns after it breaks"
+[
+	RespawnTime(float) : "Respawn Time" : 60 : "Amount in seconds this prop will respawn after it breaks."
+]

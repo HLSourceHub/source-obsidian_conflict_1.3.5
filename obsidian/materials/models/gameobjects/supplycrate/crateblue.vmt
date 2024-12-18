@@ -1,0 +1,6 @@
+"VertexLitGeneric"
+{
+
+	"$basetexture" "models/gameobjects/supplycrate/crateblue"
+	"$model" 1
+}

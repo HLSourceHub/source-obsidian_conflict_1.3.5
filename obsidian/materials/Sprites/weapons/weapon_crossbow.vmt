@@ -1,0 +1,8 @@
+"UnlitGeneric"
+{
+	"$basetexture" "sprites/weapons/weapon_crossbow"
+	"$vertexcolors" "1"
+	"$translucent" "1"
+	"$ignorez"     "1"
+	"$no_fullbright" "1"
+}

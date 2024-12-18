@@ -1,0 +1,7 @@
+VertexLitGeneric
+{
+	"$basetexture"	"models\maps\cleanup\light_shop"
+	"$envmap" "env_cubemap"
+	"$envmapmask" "models\maps\cleanup\light_shop_ref"
+
+}

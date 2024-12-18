@@ -1,0 +1,4 @@
+"VertexLitGeneric" 
+{ "$basetexture" "models/TysnBookshelf1" 
+"$surfaceprop" "wood"
+}

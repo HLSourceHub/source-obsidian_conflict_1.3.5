@@ -1,0 +1,163 @@
+"Games"
+{
+	/* General Temp Entities */
+	"#default"
+	{
+		"#supported"
+		{
+			"game"		"obsidian"
+		}
+
+		"Offsets"
+		{
+			/* Offset into CBaseTempEntity constructor */
+			"s_pTempEntities"
+			{
+				"windows"	"17"
+			}
+			"GetTEName"
+			{
+				"windows"	"4"
+				"linux"		"4"
+			}
+			"GetTENext"
+			{
+				"windows"	"8"
+				"linux"		"8"
+			}
+			"TE_GetServerClass"
+			{
+				"windows"	"0"
+				"linux"		"0"
+			}
+		}
+
+		"Signatures"
+		{
+			"CBaseTempEntity"
+			{
+				"library"	"server"
+				"windows"	"\xEC\x8B\xC1\x8B\x4D\x08\xC7\x00\x2A\x2A\x2A\x2A\x89\x48\x04\x8B\x15\x2A\x2A\x2A\x2A\x89\x50\x08\xA3\x2A\x2A\x2A\x2A\x5D\xC2\x04\x00"
+			}
+			"s_pTempEntities"
+			{
+				"library"	"server"
+				"linux"		"@_ZN15CBaseTempEntity15s_pTempEntitiesE"
+			}
+		}
+	}
+
+	/* Create Entity Signatures */
+	"#default"
+	{
+		"#supported"
+		{
+			"game"		"obsidian"
+		}
+
+		"Signatures"
+		{
+			"DispatchSpawn"
+			{
+				"library"	"server"
+				"linux"		"@_Z13DispatchSpawnP11CBaseEntity"
+				"windows"	"\x55\x8B\xEC\x51\x53\x56\x8B\x75\x08\x57\x85\xF6\x0F\x2A\x2A\x2A\x2A\x2A\x8B\x2A\x2A\x2A\x2A\x2A\x8B\x03\x8B\x50\x64\x8B\xCB\xFF\xD2"
+			}
+			"CreateEntityByName"
+			{
+				"library"	"server"
+				"linux"		"@_Z18CreateEntityByNamePKci"
+				"windows"	"\x55\x8B\xEC\x56\x8B\x2A\x2A\x57\x8B\x2A\x2A\x83\xFE\xFF\x74\x2A\x8B\x2A\x2A\x2A\x2A\x2A\x8B\x01"
+			}
+		}
+	}
+
+	/* CGlobalEntityList */
+	"#default"
+	{
+		"#supported"
+		{
+			"game"		"obsidian"
+		}
+
+		"Signatures"
+		{
+			/* Functions in CGlobalEntityList
+			 *
+			 * This will crash if 'core.games/engine.ep2.txt' doesn't have the signatures and offsets for obtaining CGlobalEntityList (i.e. dereferencing a NULL pointer)
+			 */
+			"FindEntityByClassname"
+			{
+				"library"	"server"
+				"windows"	"\x55\x8B\xEC\x53\x56\x8B\xF1\x8B\x2A\x2A\x57\x85\xC9\x74\x2A\x8B\x01\x8B\x50\x2A\xFF\xD2\x8B\x00\x25\x2A\x2A\x2A\x2A\x40\x03\xC0\x8B\x3C\xC6\xEB\x2A\x8B\xBE\x2A\x2A\x2A\x2A\x85\xFF\x74"
+				"linux"		"@_ZN17CGlobalEntityList21FindEntityByClassnameEP11CBaseEntityPKc"
+			}
+		}
+	}
+
+	/* General GameRules */
+	"#default"
+	{
+		"#supported"
+		{
+			"game"		"obsidian"
+		}
+
+		"Offsets"
+		{
+			/* Offset into CreateGameRulesObject */
+			"g_pGameRules"
+			{
+				"windows"	"2"
+			}
+		}
+
+		"Signatures"
+		{
+			/* This signature sometimes has multiple matches, but this
+			 * does not matter as g_pGameRules is involved in all of them.
+			 * The same g_pGameRules offset applies to each match.
+			 *
+			 * Sometimes this block of bytes is at the beginning of the static
+			 * CreateGameRulesObject function and sometimes it is in the middle
+			 * of an entirely different function. This depends on the game.
+			 */
+			"CreateGameRulesObject"
+			{
+				"library"	"server"
+				"windows"	"\x8B\x0D\x2A\x2A\x2A\x2A\x85\xC9\x74\x2A\x8B\x01\x8B\x50\x2A\x6A\x01\xFF\xD2"
+			}
+			"g_pGameRules"
+			{
+				"library"	"server"
+				"linux"		"@g_pGameRules"
+			}
+		}
+	}
+
+	/* CBaseEntityOutput::FireOutput */
+	"#default"
+	{
+		"#supported"
+		{
+			"game"		"obsidian"
+		}
+		"Signatures"
+		{
+			"FireOutput"
+			{
+				"library"	"server"
+				"windows"	"\x55\x8B\xEC\x81\xEC\x2A\x2A\x2A\x2A\x53\x56\x8B\x2A\x2A\x57\x89"
+				"linux"		"@_ZN17CBaseEntityOutput10FireOutputE9variant_tP11CBaseEntityS2_f"
+			}
+		}
+		"Offsets"
+		{
+			"FireOutputBackup"
+			{
+				"windows"	"9"
+				"linux"		"10"
+			}
+		}
+	}
+}

@@ -1,0 +1,5 @@
+"unlitgeneric" {
+    "$basetexture" "wofbanners\powermad"
+    "$surfaceprop" "metal"
+    "$nodecal" 1 
+}

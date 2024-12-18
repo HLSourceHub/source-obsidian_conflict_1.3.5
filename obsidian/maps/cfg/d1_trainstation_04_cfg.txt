@@ -1,0 +1,9 @@
+"HL2 Campaign Default"
+{ 
+	mp_livesoverride "2"
+	mp_numlives "1"
+	mp_falldamage "1"
+	mp_playercollide "0"
+	sv_hl2mp_item_respawn_time "99999"
+	sv_hl2mp_weapon_respawn_time "99999"
+}

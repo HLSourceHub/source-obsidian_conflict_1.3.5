@@ -1,0 +1,5 @@
+"UnlitGeneric"  {
+    "$basetexture" "custom\W0rf0x-Made-The-Map"
+    "$surfaceprop" "Metal" 
+    "$nodecal" 1 
+}

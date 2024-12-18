@@ -1,0 +1,7 @@
+VertexLitGeneric
+{
+	"$basetexture"	"models\maps\cleanup\table_meeting"
+	"$envmap" "env_cubemap"
+	"$envmapmask" "models\maps\cleanup\table_meeting_ref"
+
+}

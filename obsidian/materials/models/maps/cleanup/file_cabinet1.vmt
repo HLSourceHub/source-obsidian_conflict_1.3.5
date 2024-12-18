@@ -1,0 +1,7 @@
+VertexLitGeneric
+{
+	"$basetexture"	"models\maps\cleanup\file_cabinet1"
+	"$envmap" "env_cubemap"
+	"$envmapmask" "models\maps\cleanup\file_cabinet1_ref"
+
+}

@@ -1,0 +1,13 @@
+VertexLitGeneric
+{
+	"$basetexture"	"models\sentinel\sentinel_body\gibs\fuselage_arm\fuselage_arm.vtf"
+	"$bumpmap" "models\sentinel\sentinel_body\gibs\fuselage_arm\fuselage_arm_normal.vtf"
+	"$envmap" "env_cubemap"
+    "$normalmapalphaenvmapmask" "1"
+	"$model" "1"
+	"$phong" "1"
+  	"$phongexponent" 33
+	"$phongexponenttexture" "models/sentinel/sentinel_body/gibs/fuselage_arm/fuselage_arm_exponent.vtf"
+	"$phongboost"	"6"
+	"$phongfresnelranges"	"[0.05 0.5 1]"
+}

@@ -1,0 +1,55 @@
+Canal Jeux Vidéo Release Edits
+
+------
+sOUNDS
+------
+
+A_Bed_Of_Rusty_Skies_f.mp3			= silent
+Classical_Gas.mp3 				= Path of Borealis (Main Menu Music)
+hyrule_goodmorning.mp3				= silent
+Starship_Troopers_Loop.wav			= silent
+Starship_Troopers_Main_Theme.mp3		= VLVX_song22.mp3
+Tysn_AndyMckee_ForMyFather_Snippet.mp3		= silent
+Tysn_Barry_White_Loop.wav			= silent
+Tysn_Loveboat.mp3 				= VLVX_song18.mp3
+Tysn_Mother3_Spa.wav				= silent
+Tysn_MrBucket.mp3				= silent
+TysnDMB.mp3					= silent
+TysnELO.mp3					= gamestartup3.MP3
+perchance_to_dream.mp3				= VLVX_song1.mp3
+ost-reclaimer.mp3				= VLVX_song27.mp3
+covenant_dance.mp3				= HL1_song19.mp3
+deltahalosuit_cut.mp3				= VLVX_song22.mp3
+edgen_halo.mp3					= VLVX_song21.mp3
+incoming_gunship.mp3				= VLVX_song22.mp3
+joint.mp3					= silent
+pre-parade.mp3					= silent
+11-machinae_supremacy-insectoid.mp3		= silent
+16-machinae_supremacy-kings_of_the_sea.mp3	= silent
+20-machinae_supremacy-dududub_dududum.mp3	= silent
+Abrasive.mp3					= silent
+Antigen.mp3					= silent
+machinae_supremacy-cryosleep.mp3		= silent
+machinae_supremacy-kings_of_the_scene.mp3	= silent
+enomine-padrenuestro.mp3			= VLVX_song21.mp3
+enomine-mitternacht.mp3				= VLVX_song4.mp3
+castellorizon.mp3				= silent
+music_main.mp3					= silent
+music_end.mp3					= silent
+
+
+---------
+MATERIALS
+---------
+
+Loveboat overlays 1-7 changed to empty transparent .vtfs
+
+
+---------
+Maps
+---------
+
+Removed oc_castledefense due to various content being embedded in the .bsp file, editing it would cause a conflict with the "normal" version.
+Players will be able to download it from a server when they are joining one playing the map.
+
+Added some updated mapadds for ep2_oc_broken_escape_02a and 02b to fix a few bugs and make the maps more stable. (http://obsidianconflict.net/forums/viewtopic.php?t=4001)

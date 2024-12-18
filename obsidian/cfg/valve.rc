@@ -1,0 +1,19 @@
+// load the base configuration
+//exec default.cfg
+
+// Setup custom controller
+exec joystick.cfg
+
+// run a user script file if present
+exec autoexec.cfg
+
+//
+// stuff command line statements
+//
+stuffcmds
+
+// Random Background Loading
+sv_unlockedchapters 99
+
+// Background Map Loading
+startupmenu

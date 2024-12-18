@@ -1,0 +1,7 @@
+"UnlitGeneric"
+{
+	"$basetexture" "sprites/hud_tab_secondary_preview"
+	"$vertexcolor" "1"
+	//"$translucent" "1"
+	//"$additive" "1"
+}

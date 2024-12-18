@@ -1,0 +1,30 @@
+// Extinguish1.vmt with larger scale
+"LightmappedGeneric"
+{
+	// Original shader: DecalBaseTimesLightmapAlphaBlend
+	"$basetexture" "Decals/extinguish1"
+	"$translucent" 1
+	"$vertexcolor" 1
+	"$vertexalpha" 1
+	"$decal" 1
+	"$decalscale" 0.5
+	"$decalfadeduration" 6.00
+	"$decalfadetime" 0.00
+	"$modelmaterial" "decals/extinguish1model"
+}
+
+// Obsidian: The original material is garbage and doesn't work
+//"UnlitGeneric"
+//{
+//	"%tooltexture" "Decals/decalwastelandpuddle001a"
+//	"$envmap" "environment maps/borealis_003"
+//	"$envmapmask" "decals/decalborealispuddlemask001a"
+//	"$vertexcolor" 1
+//	"$vertexalpha" 1
+//	"$decal" 1
+//	"$decalscale" 0.2
+//
+//	// Negative fade duration means to fade in, not out
+//	"$decalfadeduration" -2.00
+//	"$decalfadetime" 0.00
+//}

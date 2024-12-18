@@ -1,0 +1,20 @@
+In your map modify script, you can define custom ammo types.
+For example:
+
+"CustomAmmo"
+{
+	"ak47"
+	{
+		"dmgtype"		"1" // CRUSH = 0, BULLET = 1, SLASH = 2, BURN = 3, VEHICLE = 4, FALL = 5, BLAST = 6, CLUB = 7, SHOCK = 8, SONIC = 9, ENERGYBEAM = 10
+		"tracer"		"4" // NONE = 0, LINE = 1, RAIL = 2, BEAM = 3, LINE AND WHIZ = 4
+		"plrdmg"		"10"
+		"npcdmg"		"10"
+		"maxcarry"		"10"
+		"grains"		"200" // 1 grain = 64.79891 milligrams
+		"ftpersec"		"1225"
+	}
+}
+
+In-game, you can give your ammo with item_custom and assign it to your scripted weapons.
+
+See also: http://wiki.neic0.de/?title=Creating_Custom_Ammos

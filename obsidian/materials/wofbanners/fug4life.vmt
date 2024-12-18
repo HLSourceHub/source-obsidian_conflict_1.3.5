@@ -1,0 +1,8 @@
+"unlitgeneric"
+{
+	"$basetexture" "wofbanners/fug4life"
+	"%keywords" "fug4life"
+	"$translucent" 1
+	"$decal" "1"
+	"$decalscale" "0.250"
+}

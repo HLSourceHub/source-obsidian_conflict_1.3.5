@@ -1,0 +1,17 @@
+ModelSettings
+{
+	//Use this option to choose a base script to use instead.
+	"usefile"	"none"
+
+	//base model rig to use. Use either Male_01 or Female_01 for best results.
+	"basemodel"	"Male_01"
+
+	//Voice Sound 0=none, 1=male, 2=female, 3=combine
+	"voice"		"3"
+
+	//Footstep Sound 1=shoe, 2=combine boots
+	"footsteps"	"2"
+
+	//Gibs, 1 = generic human, 2 = generic alien, 3 = human rebel ragdoll gibs, 4 = Ragdoll only
+	"Gibs"		"4"
+}

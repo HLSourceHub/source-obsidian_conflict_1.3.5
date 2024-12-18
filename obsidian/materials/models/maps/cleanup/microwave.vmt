@@ -1,0 +1,7 @@
+VertexLitGeneric
+{
+	"$basetexture"	"models\maps\cleanup\microwave"
+	"$envmap" "env_cubemap"
+	"$envmapmask" "models\maps\cleanup\microwave_ref"
+
+}

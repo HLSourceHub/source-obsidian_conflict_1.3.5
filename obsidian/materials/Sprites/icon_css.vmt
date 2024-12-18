@@ -1,0 +1,7 @@
+"UnlitGeneric"
+{
+	"$basetexture" "sprites/icon_css"
+	"$vertexcolor" "1"
+	"$translucent" "1"
+//	"$additive" "1"
+}

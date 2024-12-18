@@ -1,0 +1,6 @@
+unlitGeneric
+{
+	"$basetexture"	"broken_escape_2/self_illuminated_edge1"
+	"$nocull" 	"1"
+	"$surfaceprop" 	"glass"
+}

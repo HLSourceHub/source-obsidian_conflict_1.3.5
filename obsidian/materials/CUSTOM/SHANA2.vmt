@@ -1,0 +1,5 @@
+"unlitgeneric" {
+    "$basetexture" "custom\Shana2"
+    "$surfaceprop" "metal"
+    "$nodecal" 1
+}

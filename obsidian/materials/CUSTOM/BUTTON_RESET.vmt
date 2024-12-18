@@ -1,0 +1,6 @@
+"LightMappedGeneric"
+{
+	"$basetexture" "Custom/button_reset"
+	"$surfaceprop" "Metal"
+	"$nodecal" 1
+}

@@ -1,0 +1,8 @@
+"LightmappedGeneric" //"LightmappedGeneric"
+{
+	"$basetexture" "parallaxtest/lion"
+	"$surfaceprop" "concrete"
+	"$bumpmap" "parallaxtest/lion_normal"
+	"$parallaxmap" "parallaxtest/lion_height"
+	"$parallaxmapscale" "0.045"
+}

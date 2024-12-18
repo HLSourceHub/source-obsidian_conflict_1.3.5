@@ -1,0 +1,8 @@
+"VertexLitGeneric"
+{
+	"$baseTexture" "models/agibs/aliengeneric3"
+	"$bumpmap" "models/agibs/aliengeneric3_normal"
+	"$envmaptint" "[.3 .3 .3]"
+	"$envmap" "env_cubemap"
+	"$normalmapalphaenvmapmask" 1
+}

@@ -1,0 +1,7 @@
+VertexLitGeneric
+{
+	"$basetexture"	"models\maps\cleanup\light_securitya"
+	"$envmap" "env_cubemap"
+	"$envmapmask" "FX\white25_ref"
+
+}

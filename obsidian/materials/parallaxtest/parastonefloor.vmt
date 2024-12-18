@@ -1,0 +1,8 @@
+"LightmappedGeneric"
+{
+    "$basetexture" "parallaxtest/parastonefloor"
+    "$surfaceprop" "brick"
+    "$bumpmap" "parallaxtest/parastonefloor_normal"
+    "$parallaxmap" "parallaxtest/parastonefloor_height"
+    "$parallaxmapscale" 0.10
+}

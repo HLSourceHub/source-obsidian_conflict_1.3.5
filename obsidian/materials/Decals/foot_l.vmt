@@ -1,0 +1,9 @@
+"LightmappedGeneric"
+{
+	"$translucent" 1
+	"$basetexture" "decals/foot_l"
+	"$decal" 1
+	"$vertexcolor" 1
+	"$vertexalpha" 1
+	"$decalscale" 0.50
+}

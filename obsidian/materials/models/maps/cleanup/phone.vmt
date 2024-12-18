@@ -1,0 +1,7 @@
+VertexLitGeneric
+{
+	"$basetexture"	"models\maps\cleanup\phone"
+	"$envmap" "env_cubemap"
+	"$envmapmask" "models\maps\cleanup\phone_ref"
+
+}

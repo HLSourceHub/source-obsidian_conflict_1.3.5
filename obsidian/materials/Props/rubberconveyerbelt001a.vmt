@@ -1,0 +1,13 @@
+"LightmappedGeneric"
+{
+	// Original shader: BaseTimesLightmap
+	"$basetexture" "Props/rubberconveyerbelt001a"
+	"$surfaceprop" "rubber"
+	"Proxies"
+	{
+		"ConveyorScroll"
+		{
+			"texturescrollvar" "$basetexturetransform"
+		}
+	}
+}

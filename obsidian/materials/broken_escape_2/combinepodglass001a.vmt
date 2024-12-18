@@ -1,0 +1,9 @@
+// Removed reflections for A.I. room to prevent render overflows.
+"LightmappedGeneric"
+{
+	"$basetexture" "glass/combinepodglass001a"
+	"$surfaceprop" "metal"
+	"%keywords" "c17industrial"
+	"$translucent" 1
+	"$nodecal" 1
+}

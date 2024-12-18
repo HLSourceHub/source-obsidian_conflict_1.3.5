@@ -1,0 +1,101 @@
+Obsidian Conflict Mapping and Modeling
+===============================================>
+
+Unlike previous releases, do not move any of the three FGD files from the Obsidian\Obsidian SDK folder.
+
+
+Open your C:\Program Files\Valve\Steam\SteamApps\[MY EMAIL]\sourcesdk\bin folder.
+Open the file GameConfig.txt
+
+Add
+
+		"Obsidian Conflict"
+		{
+			"GameDir"		"c:\program files\valve\steam\steamapps\SourceMods\Obsidian"
+			"hammer"
+			{
+				"GameData0"		"c:\program files\valve\steam\steamapps\SourceMods\Obsidian\Obsidian SDK\Obsidian.fgd"
+				"TextureFormat"		"5"
+				"MapFormat"		"4"
+				"DefaultTextureScale"		"0.250000"
+				"DefaultLightmapScale"		"16"
+				"GameExe"		"c:\program files\valve\steam\steamapps\[MY EMAIL]\half-life 2\hl2.exe"
+				"DefaultSolidEntity"		"func_detail"
+				"DefaultPointEntity"		"ai_ally_manager"
+				"BSP"		"c:\program files\valve\steam\steamapps\[MY EMAIL]\sourcesdk\bin\vbsp.exe"
+				"Vis"		"c:\program files\valve\steam\steamapps\[MY EMAIL]\sourcesdk\bin\vvis.exe"
+				"Light"		"c:\program files\valve\steam\steamapps\[MY EMAIL]\sourcesdk\bin\vrad.exe"
+				"GameExeDir"		"c:\program files\valve\steam\steamapps\[MY EMAIL]\half-life 2"
+				"MapDir"		"c:\program files\valve\steam\steamapps\SourceMods\sourcesdk_content\obsidian\mapsrc"
+				"BSPDir"		"c:\program files\valve\steam\steamapps\SourceMods\obsidian\maps"
+				"CordonTexture"		"tools\toolsskybox"
+				"MaterialExcludeCount"		"0"
+			}
+		}
+
+Just before the last two Bracers.
+
+Example:
+
+
+		}
+		"Half-Life 2: Deathmatch"
+		{
+			"GameDir"		"c:\program files\valve\steam\steamapps\[MY EMAIL]\half-life 2 deathmatch\hl2mp"
+			"hammer"
+			{
+				"GameData0"		"c:\program files\valve\steam\steamapps\[MY EMAIL]\sourcesdk\bin\hl2mp.fgd"
+				"TextureFormat"		"5"
+				"MapFormat"		"4"
+				"DefaultTextureScale"		"0.250000"
+				"DefaultLightmapScale"		"16"
+				"GameExe"		"c:\program files\valve\steam\steamapps\[MY EMAIL]\half-life 2 deathmatch\hl2.exe"
+				"DefaultSolidEntity"		"func_detail"
+				"DefaultPointEntity"		"info_player_deathmatch"
+				"BSP"		"c:\program files\valve\steam\steamapps\[MY EMAIL]\sourcesdk\bin\vbsp.exe"
+				"Vis"		"c:\program files\valve\steam\steamapps\[MY EMAIL]\sourcesdk\bin\vvis.exe"
+				"Light"		"c:\program files\valve\steam\steamapps\[MY EMAIL]\sourcesdk\bin\vrad.exe"
+				"GameExeDir"		"c:\program files\valve\steam\steamapps\[MY EMAIL]\half-life 2 deathmatch"
+				"MapDir"		"c:\program files\valve\steam\steamapps\[MY EMAIL]\sourcesdk_content\hl2mp\mapsrc"
+				"BSPDir"		"c:\program files\valve\steam\steamapps\[MY EMAIL]\half-life 2 deathmatch\hl2mp\maps"
+				"CordonTexture"		"tools\toolsskybox"
+				"MaterialExcludeCount"		"0"
+			}
+		}
+		"Obsidian Conflict"
+		{
+			"GameDir"		"c:\program files\valve\steam\steamapps\SourceMods\Obsidian"
+			"hammer"
+			{
+				"GameData0"		"c:\program files\valve\steam\steamapps\SourceMods\Obsidian\Obsidian SDK\Obsidian.fgd"
+				"TextureFormat"		"5"
+				"MapFormat"		"4"
+				"DefaultTextureScale"		"0.250000"
+				"DefaultLightmapScale"		"16"
+				"GameExe"		"c:\program files\valve\steam\steamapps\[MY EMAIL]\half-life 2\hl2.exe"
+				"DefaultSolidEntity"		"func_detail"
+				"DefaultPointEntity"		"ai_ally_manager"
+				"BSP"		"c:\program files\valve\steam\steamapps\[MY EMAIL]\sourcesdk\bin\vbsp.exe"
+				"Vis"		"c:\program files\valve\steam\steamapps\[MY EMAIL]\sourcesdk\bin\vvis.exe"
+				"Light"		"c:\program files\valve\steam\steamapps\[MY EMAIL]\sourcesdk\bin\vrad.exe"
+				"GameExeDir"		"c:\program files\valve\steam\steamapps\[MY EMAIL]\half-life 2"
+				"MapDir"		"c:\program files\valve\steam\steamapps\SourceMods\sourcesdk_content\obsidian\mapsrc"
+				"BSPDir"		"c:\program files\valve\steam\steamapps\SourceMods\obsidian\maps"
+				"CordonTexture"		"tools\toolsskybox"
+				"MaterialExcludeCount"		"0"
+			}
+		}
+	}
+}
+
+
+Replace [MY EMAIL] with your Steam account folder name, and change any other paths as needed.
+
+
+Happy Mapping!
+
+Make sure to post your work on our forums! We will be making Obsidian Map packs for download and if your map is truly amazing we might just include it in an official release!
+
+Thank you for playing Obsidian Conflict!
+
+See also: http://wiki.neic0.de/?title=Obsidian_SDK_Setup

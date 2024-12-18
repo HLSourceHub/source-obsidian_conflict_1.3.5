@@ -1,0 +1,36 @@
+"Refract"
+{
+
+"Refract_DX60"
+{
+  "$fallbackmaterial" "models\props_underwater\underwater_d_dx60"
+}
+ 
+
+	"$surfaceprop" "glass"
+	"$model" 1
+	//"$bluramount" 1
+
+	//Water was somewhat hard to see. Was a refraction of 0.2
+	"$refractamount" "0.8"
+	"$refracttint" "[.75 .75 .75]"
+	//"$nocull" 1
+	
+	//"$envmap" "env_cubemap"
+	//"$envmaptint" "[1 1 1]" 
+
+	"$normalmap" "dev/water_normal"
+	"$bumpmap" "dev/water_dudv"
+	
+	"$REFRACTTINTTEXTURE" "models\props_underwater\underdasea"
+
+	"Proxies"
+	{
+		"AnimatedTexture"
+		{
+			"animatedtexturevar" "$normalmap"
+			"animatedtextureframenumvar" "$bumpframe"
+			"animatedtextureframerate" 20.00
+		}
+	}
+}

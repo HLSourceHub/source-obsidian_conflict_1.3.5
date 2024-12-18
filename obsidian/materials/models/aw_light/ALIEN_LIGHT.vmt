@@ -1,0 +1,8 @@
+"VertexLitGeneric"
+{
+	"$baseTexture" "models\aw_light\alien_light"
+	// "$bumpmap" "models\aw_light\alien_light_normal"
+	"$detail" "detail/detail_noise1"
+	"$envmapcontrast" 1.1
+	"$envmapsaturation" 0
+}

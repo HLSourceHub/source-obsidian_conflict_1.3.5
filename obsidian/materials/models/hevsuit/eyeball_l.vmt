@@ -1,0 +1,6 @@
+"eyes"
+{
+	"$basetexture" "models/Hevsuit/eyeball_l"
+	"$iris" "models/Hevsuit/grn_pupil_l"
+	"$halflambert" 1
+}

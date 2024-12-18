@@ -1,0 +1,12 @@
+// envmaptint_fix
+"LightmappedGeneric"
+{
+	"$basetexture" "Stone/stonefloor006d"
+	"$surfaceprop" "concrete"
+	"%keywords" "c17downtown,wasteland"
+
+	"LightmappedGeneric_DX9"
+ 	{
+		"$bumpmap" "stone/stonefloor006a_normal"
+	}
+}

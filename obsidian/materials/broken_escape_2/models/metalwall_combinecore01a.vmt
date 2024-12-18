@@ -1,0 +1,7 @@
+// envmaptint_fix
+"vertexlitgeneric"
+{
+	"$basetexture" "metal/metalwall_combinecore01a"
+	"$surfaceprop" "metal"
+	"$bumpmap" "metal/metalwall_combinecore01a_normal"
+}

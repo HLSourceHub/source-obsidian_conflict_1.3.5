@@ -1,0 +1,16 @@
+
+"VertexLitGeneric"
+{
+
+	"$basetexture" "Models/elite_police/metrocop_elite"
+        "$bumpmap" "Models/elite_police/metrocop_elite_n"
+	"$selfillum" 1
+
+// todo: phong mask and tweak settings
+// $phong 1
+// $phongboost "4.5"
+// $phongexponent 3.5
+// $phongtint "[.85 .85 1]"
+// $phongfresnelranges "[.3 .65 30]"
+// $ambientocclusion 1
+}

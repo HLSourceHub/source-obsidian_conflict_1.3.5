@@ -1,0 +1,7 @@
+// envmaptint_fix
+"LightmappedGeneric"
+{
+	"$basetexture" "concrete\concretefloor033k"
+	"$surfaceprop" "concrete"
+	"%keywords" "c17downtown"
+}

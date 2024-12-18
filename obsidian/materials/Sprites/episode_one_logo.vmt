@@ -1,0 +1,7 @@
+"UnlitGeneric"
+{
+	"$basetexture" "sprites/episode_one_logo"
+	"$vertexcolor" "1"
+	"$translucent" "1"
+//	"$additive" "1"
+}

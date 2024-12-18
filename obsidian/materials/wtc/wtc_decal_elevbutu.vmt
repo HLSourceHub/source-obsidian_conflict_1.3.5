@@ -1,0 +1,9 @@
+"lightmappedgeneric"
+{
+	// original shader: decalbasetimeslightmapalphablend
+	"$translucent" 1
+	"$basetexture" "wtc/wtc_decal_elevbutu"
+	"$decal" 1
+	"$decalscale" 0.15
+	"%keywords" "wtc"
+}

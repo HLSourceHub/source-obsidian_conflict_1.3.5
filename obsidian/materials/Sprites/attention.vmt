@@ -1,0 +1,9 @@
+"Sprite"
+{
+	"$basetexture" "sprites/attention"
+	"$spriteorientation" "parallel_upright"
+	"$spriteorigin" "[ 0.50 0.50 ]"
+//	"$vertexcolors" "1"
+	"$translucent" "1"
+//	"$additive" "1"
+}

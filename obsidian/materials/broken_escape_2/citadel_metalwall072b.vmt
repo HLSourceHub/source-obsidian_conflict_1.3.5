@@ -1,0 +1,8 @@
+// Removed reflections for A.I. room to prevent render overflows.
+"LightmappedGeneric"
+{
+	"$basetexture" "Metal/metalwall072b"
+	"$surfaceprop" "metal"
+	"%keywords" "combine"
+	"$bumpmap" "metal/metalwall072b_normal"
+}

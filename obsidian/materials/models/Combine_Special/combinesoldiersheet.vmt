@@ -1,0 +1,11 @@
+"VertexLitGeneric"
+{
+	"$baseTexture" 	"Models/Combine_special/combinesoldiersheet"
+	"$envmap" "env_cubemap"	
+	"$envmapmask" "Models/Combine_special/combinesoldiersheet_mask"
+	"$bumpmap" 	"Models/Combine_special/combinesoldiersheet_normal"
+	"$envmapcontrast" 1
+}
+
+
+
